@@ -20,6 +20,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Функция для отправки вебхука и данных
+    window.sendAppointmentRequest = function() {
+        // Отправляем вебхук
+        fetch('https://maximov-neuro.ru/webhook-test/99eab1a0-569d-4f0f-a49e-578a02abfe63/webhook', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'appointment_request',
+                timestamp: new Date().toISOString()
+            })
+        }).then(response => {
+            console.log('Webhook sent successfully');
+            // После отправки вебхука отправляем данные и закрываем приложение
+            window.Telegram.WebApp.sendData('Здравствуйте! Хочу записаться на консультацию');
+            window.Telegram.WebApp.close();
+        }).catch(error => {
+            console.error('Error sending webhook:', error);
+            // В случае ошибки всё равно отправляем данные и закрываем приложение
+            window.Telegram.WebApp.sendData('Здравствуйте! Хочу записаться на консультацию');
+            window.Telegram.WebApp.close();
+        });
+    };
+
     // Анимация при скроллинге
     const contentBlocks = document.querySelectorAll('.content');
     
