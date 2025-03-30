@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         // URL Google Apps Script Web App
-        const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxagccl6d8ogwWRNuvTkMt3Mp6rYX5zN3N7wFesYgqTsr4fZop2E6qjO7b20OcM0AcNgQ/exec'; // Замените на актуальный URL вашего скрипта
+        const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbzYRGCVg5axULY-nLAD4htZYURYM5X9qqfGgOQ9F042nKL09hmwXV7za5-bHCfn4U3PWQ/exec'; // Замените на актуальный URL вашего скрипта
         
         // Отправляем данные в Google Sheets
         fetch(googleScriptUrl, {
