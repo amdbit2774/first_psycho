@@ -22,6 +22,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Функция для отправки вебхука и данных
     window.sendAppointmentRequest = function() {
+        // Получаем текущую дату и время
+        const now = new Date();
+        const formattedDate = now.toLocaleDateString('ru-RU');
+        const formattedTime = now.toLocaleTimeString('ru-RU');
+        
+        // Данные для отправки в таблицу
+        const sheetData = {
+            date: formattedDate,
+            time: formattedTime,
+            action: 'Запрос на консультацию',
+            source: 'Telegram Mini App'
+        };
+        
+        // URL Google Apps Script Web App
+        const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbx8DVpJhCW5WpD3D0j2MvHHGwq3LwHsKsG9Z_k5_g/exec'; // Замените на актуальный URL вашего скрипта
+        
+        // Отправляем данные в Google Sheets
+        fetch(googleScriptUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(sheetData)
+        }).catch(error => {
+            console.error('Error sending data to Google Sheets:', error);
+        });
+        
         // Отправляем вебхук
         fetch('https://maximov-neuro.ru/webhook-test/99eab1a0-569d-4f0f-a49e-578a02abfe63/webhook', {
             method: 'POST',
@@ -30,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify({
                 action: 'appointment_request',
-                timestamp: new Date().toISOString()
+                timestamp: now.toISOString()
             })
         }).then(response => {
             console.log('Webhook sent successfully');
