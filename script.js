@@ -39,16 +39,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxagccl6d8ogwWRNuvTkMt3Mp6rYX5zN3N7wFesYgqTsr4fZop2E6qjO7b20OcM0AcNgQ/exec'; // Замените на актуальный URL вашего скрипта
         
         // Отправляем данные в Google Sheets
-        const queryParams = new URLSearchParams({
-            date: formattedDate,
-            time: formattedTime,
-            action: 'Запрос на консультацию',
-            source: 'Telegram Mini App'
-        }).toString();
-        
-        // Отправляем GET запрос вместо POST
-        fetch(`${googleScriptUrl}?${queryParams}`, {
-            method: 'GET'
+        fetch(googleScriptUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                date: formattedDate,
+                time: formattedTime,
+                action: 'Запрос на консультацию',
+                source: 'Telegram Mini App'
+            })
         }).then(response => {
             console.log('Google Sheets response:', response);
             return response.text();
