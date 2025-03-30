@@ -27,57 +27,54 @@ document.addEventListener('DOMContentLoaded', function() {
         const formattedDate = now.toLocaleDateString('ru-RU');
         const formattedTime = now.toLocaleTimeString('ru-RU');
         
-        // Данные для отправки в таблицу
-        const sheetData = {
-            date: formattedDate,
-            time: formattedTime,
-            action: 'Запрос на консультацию',
-            source: 'Telegram Mini App'
-        };
-        
-        // URL Google Apps Script Web App
-        const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbzYRGCVg5axULY-nLAD4htZYURYM5X9qqfGgOQ9F042nKL09hmwXV7za5-bHCfn4U3PWQ/exec'; // Замените на актуальный URL вашего скрипта
-        
-        // Отправляем данные в Google Sheets
-        fetch(googleScriptUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                date: formattedDate,
-                time: formattedTime,
-                action: 'Запрос на консультацию',
-                source: 'Telegram Mini App'
-            })
-        }).then(response => {
-            console.log('Google Sheets response:', response);
-            return response.text();
-        }).then(data => {
-            console.log('Data saved to Google Sheets:', data);
-        }).catch(error => {
-            console.error('Error sending data to Google Sheets:', error);
-        });
-        
-        // Отправляем вебхук
-        fetch('https://maximov-neuro.ru/webhook-test/99eab1a0-569d-4f0f-a49e-578a02abfe63/webhook', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                action: 'appointment_request',
-                timestamp: now.toISOString()
-            })
-        }).then(response => {
-            console.log('Webhook sent successfully');
-            // Только закрываем приложение без отправки данных
+        try {
+            // Сразу отправляем данные в бот, чтобы пользователь получил сообщение
+            window.Telegram.WebApp.sendData('Здравствуйте! Хочу записаться на консультацию');
+            
+            // Закрываем приложение сразу
             window.Telegram.WebApp.close();
-        }).catch(error => {
-            console.error('Error sending webhook:', error);
-            // Только закрываем приложение без отправки данных
-            window.Telegram.WebApp.close();
-        });
+            
+            // После закрытия отправляем данные асинхронно
+            setTimeout(() => {
+                // Отправляем данные в Google Sheets
+                fetch('https://script.google.com/macros/s/AKfycbzYRGCVg5axULY-nLAD4htZYURYM5X9qqfGgOQ9F042nKL09hmwXV7za5-bHCfn4U3PWQ/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        date: formattedDate,
+                        time: formattedTime,
+                        action: 'Запрос на консультацию',
+                        source: 'Telegram Mini App'
+                    })
+                }).catch(error => {
+                    console.error('Error sending data to Google Sheets:', error);
+                });
+                
+                // Отправляем вебхук
+                fetch('https://maximov-neuro.ru/webhook-test/99eab1a0-569d-4f0f-a49e-578a02abfe63/webhook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'appointment_request',
+                        timestamp: now.toISOString()
+                    })
+                }).catch(error => {
+                    console.error('Error sending webhook:', error);
+                });
+            }, 100);
+        } catch (error) {
+            console.error('Error during appointment request:', error);
+            // В случае ошибки все равно пытаемся закрыть приложение
+            try {
+                window.Telegram.WebApp.close();
+            } catch (closeError) {
+                console.error('Error closing app:', closeError);
+            }
+        }
     };
 
     // Анимация при скроллинге
