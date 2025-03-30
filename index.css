@@ -19,7 +19,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background: url('assets/img/background.jpg') no-repeat center center fixed;
     background-size: cover;
-    color: var(--tg-theme-text-color, #000000);
+    color: #333333;
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -29,8 +29,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
     position: relative;
     z-index: 1;
 }
@@ -39,14 +39,14 @@ body {
     max-width: 800px;
     width: 100%;
     text-align: center;
-    padding: 40px;
+    padding: 20px;
     background-color: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     position: relative;
     z-index: 10;
-    margin: 20px auto;
+    margin: 10px auto;
 }
 
 .profile-image {
@@ -64,14 +64,14 @@ body {
     font-size: 28px;
     font-weight: 600;
     margin: 0 0 16px;
-    color: var(--tg-theme-text-color, #000000);
+    color: #333333;
 }
 
 .main-subtitle {
     font-size: 16px;
     font-weight: 400;
     margin: 0 0 24px;
-    color: var(--tg-theme-hint-color, #808080);
+    color: #666666;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -79,8 +79,8 @@ body {
 .description {
     font-size: 16px;
     line-height: 1.6;
-    margin: 0 0 32px;
-    color: var(--tg-theme-text-color, #000000);
+    margin: 0 0 16px;
+    color: #333333;
 }
 
 .main-button {
@@ -102,25 +102,25 @@ body {
 
 .faq-list {
     text-align: left;
-    margin-top: 32px;
+    margin-top: 16px;
 }
 
 .faq-item {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.95);
     border-radius: 8px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     overflow: hidden;
 }
 
 .faq-question {
-    padding: 20px;
+    padding: 16px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: 500;
-    color: var(--tg-theme-text-color, #000000);
-    background-color: rgba(255, 255, 255, 0.9);
+    color: #333333;
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 .faq-question:hover {
@@ -141,22 +141,22 @@ body {
 .faq-answer {
     max-height: 0;
     overflow: hidden;
-    padding: 0 20px;
+    padding: 0 16px;
     line-height: 1.6;
-    color: var(--tg-theme-text-color, #000000);
-    background-color: rgba(255, 255, 255, 0.8);
+    color: #333333;
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 .faq-item.active .faq-answer {
     max-height: 500px;
-    padding: 20px;
+    padding: 16px;
 }
 
 .about-me {
     text-align: left;
-    margin-top: 24px;
+    margin-top: 16px;
     background-color: rgba(255, 255, 255, 0.95);
-    padding: 24px;
+    padding: 16px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -168,38 +168,38 @@ body {
 .directions-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 24px;
-    margin-top: 32px;
+    gap: 16px;
+    margin-top: 16px;
 }
 
 .direction-item {
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 8px;
-    padding: 24px;
+    padding: 16px;
     text-align: left;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .direction-title {
     font-family: 'Playfair Display', serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
-    margin-bottom: 12px;
-    color: var(--tg-theme-text-color, #000000);
+    margin-bottom: 8px;
+    color: #333333;
 }
 
 .direction-description {
     font-size: 14px;
     line-height: 1.6;
-    color: var(--tg-theme-text-color, #000000);
+    color: #333333;
 }
 
 .contact-buttons {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-top: 32px;
+    gap: 12px;
+    margin-top: 16px;
 }
 
 .contact-button {
@@ -225,11 +225,11 @@ body {
 @media (max-width: 768px) {
     .section {
         min-height: auto;
-        padding: 40px 20px;
+        padding: 20px 10px;
     }
 
     .content {
-        padding: 20px;
+        padding: 16px;
     }
 
     .directions-list {
