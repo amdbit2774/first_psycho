@@ -45,6 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(sheetData)
+        }).then(response => {
+            console.log('Google Sheets response:', response);
+            return response.json();
+        }).then(data => {
+            console.log('Data saved to Google Sheets:', data);
         }).catch(error => {
             console.error('Error sending data to Google Sheets:', error);
         });
@@ -61,13 +66,11 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         }).then(response => {
             console.log('Webhook sent successfully');
-            // После отправки вебхука отправляем данные и закрываем приложение
-            window.Telegram.WebApp.sendData('Здравствуйте! Хочу записаться на консультацию');
+            // Только закрываем приложение без отправки данных
             window.Telegram.WebApp.close();
         }).catch(error => {
             console.error('Error sending webhook:', error);
-            // В случае ошибки всё равно отправляем данные и закрываем приложение
-            window.Telegram.WebApp.sendData('Здравствуйте! Хочу записаться на консультацию');
+            // Только закрываем приложение без отправки данных
             window.Telegram.WebApp.close();
         });
     };
