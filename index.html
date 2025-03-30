@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Юлиана Максимова - Клинический психолог</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <section class="section">
+        <div class="content">
+            <img src="assets/img/profile.jpg" alt="Юлиана Максимова" class="profile-image">
+            <h1 class="main-title">Юлиана Максимова</h1>
+            <h2 class="main-subtitle">Клинический психолог и нейропсихолог</h2>
+            <p class="description">
+                Помогу вам найти путь к гармонии и личностному росту через профессиональную психологическую поддержку
+            </p>
+            <button class="main-button" onclick="window.Telegram.WebApp.sendData('Здравствуйте! Хочу записаться на консультацию')">
+                ЗАПИСАТЬСЯ
+            </button>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="content">
+            <h2 class="main-title">Обо мне</h2>
+            <div class="about-me">
+                <p class="description">
+                    Я клинический психолог с более чем 5-летним опытом работы. Специализируюсь на когнитивно-поведенческой терапии и нейропсихологической диагностике. Помогаю клиентам справляться с тревожностью, депрессией, стрессом и другими психологическими проблемами.
+                </p>
+                <p class="description">
+                    Регулярно повышаю квалификацию, участвую в профессиональных конференциях и семинарах. Создаю безопасное пространство для работы с вашими переживаниями и помогаю найти эффективные решения.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="content">
+            <h2 class="main-title">Основные направления</h2>
+            <div class="directions-list">
+                <div class="direction-item">
+                    <h3 class="direction-title">Индивидуальная терапия</h3>
+                    <p class="direction-description">
+                        Работа один на один, направленная на решение личных проблем и достижение психологического благополучия
+                    </p>
+                </div>
+                <div class="direction-item">
+                    <h3 class="direction-title">Нейропсихологическая диагностика</h3>
+                    <p class="direction-description">
+                        Оценка когнитивных функций и разработка индивидуальных программ реабилитации
+                    </p>
+                </div>
+                <div class="direction-item">
+                    <h3 class="direction-title">Работа с тревожностью</h3>
+                    <p class="direction-description">
+                        Помощь в преодолении тревожных состояний и панических атак
+                    </p>
+                </div>
+                <div class="direction-item">
+                    <h3 class="direction-title">Семейная терапия</h3>
+                    <p class="direction-description">
+                        Работа с семейными отношениями и разрешение конфликтных ситуаций
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="content">
+            <h2 class="main-title">Часто задаваемые вопросы</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">Как проходит консультация?</div>
+                    <div class="faq-answer">
+                        Консультация проходит в комфортной обстановке, где вы можете свободно говорить о своих переживаниях. Я помогу вам разобраться в ситуации и найти оптимальное решение.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Сколько длится сессия?</div>
+                    <div class="faq-answer">
+                        Стандартная сессия длится 50 минут. В некоторых случаях может быть увеличена до 80 минут по предварительной договоренности.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Как часто нужно посещать психолога?</div>
+                    <div class="faq-answer">
+                        Частота встреч определяется индивидуально, обычно это 1-2 раза в неделю. Регулярность важна для достижения устойчивого результата.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="content">
+            <h2 class="main-title">Контакты</h2>
+            <div class="contact-buttons">
+                <a href="https://t.me/neuropsychologies" target="_blank" class="contact-button">Телеграм канал</a>
+                <a href="https://t.me/juliana_max" target="_blank" class="contact-button">Мой телеграм</a>
+                <button class="contact-button" onclick="window.Telegram.WebApp.close()">ИИ-Ассистент</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html> 
