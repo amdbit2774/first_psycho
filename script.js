@@ -20,6 +20,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Анимация при скроллинге
+    const contentBlocks = document.querySelectorAll('.content');
+    
+    // Делаем первый блок видимым сразу
+    if (contentBlocks.length > 0) {
+        contentBlocks[0].classList.add('visible');
+    }
+    
+    // Функция для проверки, находится ли элемент в видимой области
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+            rect.bottom >= 0
+        );
+    }
+    
+    // Функция для добавления класса visible элементам в поле зрения
+    function handleScroll() {
+        contentBlocks.forEach(block => {
+            if (isElementInViewport(block)) {
+                block.classList.add('visible');
+            }
+        });
+    }
+    
+    // Запускаем один раз для элементов, которые уже в поле зрения
+    handleScroll();
+    
+    // Устанавливаем слушатель события прокрутки
+    window.addEventListener('scroll', handleScroll);
+
     // Инициализация Telegram WebApp
     const tg = window.Telegram.WebApp;
     tg.expand();
