@@ -36,18 +36,22 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         // URL Google Apps Script Web App
-        const googleScriptUrl = 'https://script.google.com/macros/s/AKfycby6ENaGOV2viDJChMmBxQ-QA6jeNtMOHiVwRhi5cR1S95LS_rYHMNhqgTzBpjys3YEnZA/exec'; // Замените на актуальный URL вашего скрипта
+        const googleScriptUrl = 'https://script.google.com/macros/s/AKfycbxagccl6d8ogwWRNuvTkMt3Mp6rYX5zN3N7wFesYgqTsr4fZop2E6qjO7b20OcM0AcNgQ/exec'; // Замените на актуальный URL вашего скрипта
         
         // Отправляем данные в Google Sheets
-        fetch(googleScriptUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(sheetData)
+        const queryParams = new URLSearchParams({
+            date: formattedDate,
+            time: formattedTime,
+            action: 'Запрос на консультацию',
+            source: 'Telegram Mini App'
+        }).toString();
+        
+        // Отправляем GET запрос вместо POST
+        fetch(`${googleScriptUrl}?${queryParams}`, {
+            method: 'GET'
         }).then(response => {
             console.log('Google Sheets response:', response);
-            return response.json();
+            return response.text();
         }).then(data => {
             console.log('Data saved to Google Sheets:', data);
         }).catch(error => {
