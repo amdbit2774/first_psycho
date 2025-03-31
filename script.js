@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // После закрытия отправляем вебхук асинхронно
             setTimeout(() => {
                 // Отправляем вебхук с данными пользователя
-                fetch('https://maximov-neuro.ru/webhook-test/99eab1a0-569d-4f0f-a49e-578a02abfe63/webhook', {
+                fetch('https://maximov-neuro.ru/webhook/76ee76d4-a6b6-43dc-938c-6f615e76f827', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
