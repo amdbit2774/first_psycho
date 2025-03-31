@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Функция для отправки вебхука и данных
+    // Функция для отправки данных в ИИ-ассистента
     window.sendAppointmentRequest = function() {
         // Получаем текущую дату и время
         const now = new Date();
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Формируем сообщение с данными пользователя
             const message = {
-                text: 'Здравствуйте! Хочу записаться на консультацию',
+                text: 'Здравствуйте! Хочу записаться на консультацию через ИИ-ассистента',
                 user: {
                     id: user?.id,
                     username: user?.username,
@@ -44,58 +44,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 time: formattedTime
             };
             
+            console.log('Отправка данных ИИ-ассистенту:', JSON.stringify(message));
+            
             // Отправляем данные в бот
             window.Telegram.WebApp.sendData(JSON.stringify(message));
             
             // Закрываем приложение
             window.Telegram.WebApp.close();
-            
-            // После закрытия отправляем вебхук асинхронно
-            setTimeout(() => {
-                // Отправляем вебхук с данными пользователя
-                console.log('Отправка вебхука на:', 'https://maximov-neuro.ru/webhook-test/334e787d-0eb6-47a6-b3f9-5b188309511c');
-                console.log('Данные для отправки:', JSON.stringify({
-                    action: 'appointment_request',
-                    timestamp: now.toISOString(),
-                    user: {
-                        id: user?.id,
-                        username: user?.username,
-                        first_name: user?.first_name,
-                        last_name: user?.last_name
-                    }
-                }));
-                
-                fetch('https://maximov-neuro.ru/webhook-test/334e787d-0eb6-47a6-b3f9-5b188309511c', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'appointment_request',
-                        timestamp: now.toISOString(),
-                        user: {
-                            id: user?.id,
-                            username: user?.username,
-                            first_name: user?.first_name,
-                            last_name: user?.last_name
-                        }
-                    })
-                }).then(response => {
-                    console.log('Вебхук отправлен успешно, статус:', response.status);
-                    return response.text();
-                }).then(data => {
-                    console.log('Ответ от сервера:', data);
-                }).catch(error => {
-                    console.error('Error sending webhook:', error);
-                });
-            }, 100);
         } catch (error) {
-            console.error('Error during appointment request:', error);
+            console.error('Ошибка при отправке запроса:', error);
             // В случае ошибки все равно пытаемся закрыть приложение
             try {
                 window.Telegram.WebApp.close();
             } catch (closeError) {
-                console.error('Error closing app:', closeError);
+                console.error('Ошибка при закрытии приложения:', closeError);
             }
         }
     };
