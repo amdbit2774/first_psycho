@@ -28,31 +28,31 @@ document.addEventListener('DOMContentLoaded', function() {
         const formattedTime = now.toLocaleTimeString('ru-RU');
         
         try {
-            // Сразу отправляем данные в бот, чтобы пользователь получил сообщение
-            window.Telegram.WebApp.sendData('Здравствуйте! Хочу записаться на консультацию');
+            const tg = window.Telegram.WebApp;
+            const user = tg.initDataUnsafe.user;
             
-            // Закрываем приложение сразу
+            // Формируем сообщение с данными пользователя
+            const message = {
+                text: 'Здравствуйте! Хочу записаться на консультацию',
+                user: {
+                    id: user?.id,
+                    username: user?.username,
+                    first_name: user?.first_name,
+                    last_name: user?.last_name
+                },
+                date: formattedDate,
+                time: formattedTime
+            };
+            
+            // Отправляем данные в бот
+            window.Telegram.WebApp.sendData(JSON.stringify(message));
+            
+            // Закрываем приложение
             window.Telegram.WebApp.close();
             
-            // После закрытия отправляем данные асинхронно
+            // После закрытия отправляем вебхук асинхронно
             setTimeout(() => {
-                // Отправляем данные в Google Sheets
-                fetch('https://script.google.com/macros/s/AKfycbzYRGCVg5axULY-nLAD4htZYURYM5X9qqfGgOQ9F042nKL09hmwXV7za5-bHCfn4U3PWQ/exec', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        date: formattedDate,
-                        time: formattedTime,
-                        action: 'Запрос на консультацию',
-                        source: 'Telegram Mini App'
-                    })
-                }).catch(error => {
-                    console.error('Error sending data to Google Sheets:', error);
-                });
-                
-                // Отправляем вебхук
+                // Отправляем вебхук с данными пользователя
                 fetch('https://maximov-neuro.ru/webhook-test/99eab1a0-569d-4f0f-a49e-578a02abfe63/webhook', {
                     method: 'POST',
                     headers: {
@@ -60,7 +60,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     body: JSON.stringify({
                         action: 'appointment_request',
-                        timestamp: now.toISOString()
+                        timestamp: now.toISOString(),
+                        user: {
+                            id: user?.id,
+                            username: user?.username,
+                            first_name: user?.first_name,
+                            last_name: user?.last_name
+                        }
                     })
                 }).catch(error => {
                     console.error('Error sending webhook:', error);
