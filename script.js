@@ -53,6 +53,18 @@ document.addEventListener('DOMContentLoaded', function() {
             // После закрытия отправляем вебхук асинхронно
             setTimeout(() => {
                 // Отправляем вебхук с данными пользователя
+                console.log('Отправка вебхука на:', 'https://maximov-neuro.ru/webhook-test/334e787d-0eb6-47a6-b3f9-5b188309511c');
+                console.log('Данные для отправки:', JSON.stringify({
+                    action: 'appointment_request',
+                    timestamp: now.toISOString(),
+                    user: {
+                        id: user?.id,
+                        username: user?.username,
+                        first_name: user?.first_name,
+                        last_name: user?.last_name
+                    }
+                }));
+                
                 fetch('https://maximov-neuro.ru/webhook-test/334e787d-0eb6-47a6-b3f9-5b188309511c', {
                     method: 'POST',
                     headers: {
@@ -68,6 +80,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             last_name: user?.last_name
                         }
                     })
+                }).then(response => {
+                    console.log('Вебхук отправлен успешно, статус:', response.status);
+                    return response.text();
+                }).then(data => {
+                    console.log('Ответ от сервера:', data);
                 }).catch(error => {
                     console.error('Error sending webhook:', error);
                 });
